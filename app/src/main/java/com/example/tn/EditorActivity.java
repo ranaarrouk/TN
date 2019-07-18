@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.thebluealliance.spectrum.SpectrumPalette;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,8 +20,11 @@ public class EditorActivity extends AppCompatActivity {
 
     EditText et_title, et_note;
     ProgressDialog pg;
+    SpectrumPalette palette;
+
     ApiInterface apiInterface;
 
+    int color;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +32,12 @@ public class EditorActivity extends AppCompatActivity {
 
         et_note = (EditText) findViewById(R.id.note);
         et_title = (EditText) findViewById(R.id.title);
+        palette = (SpectrumPalette) findViewById(R.id.palette);
+
+        palette.setOnColorSelectedListener(clr -> color = clr);
+
+        palette.setSelectedColor(getResources().getColor(R.color.white));
+        color = getResources().getColor(R.color.white);
 
         pg = new ProgressDialog(this);
         pg.setMessage("Please wait...");
@@ -45,7 +56,7 @@ public class EditorActivity extends AppCompatActivity {
             case R.id.save:
                 String title = et_title.getText().toString().trim();
                 String note = et_note.getText().toString().trim();
-                int color = - 2184710;
+                int color =  this.color;
 
                 if(title.isEmpty()) {
                     et_title.setError("Please enter a title..");
