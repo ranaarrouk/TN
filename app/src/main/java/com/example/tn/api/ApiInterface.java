@@ -1,4 +1,6 @@
-package com.example.tn;
+package com.example.tn.api;
+
+import com.example.tn.model.Note;
 
 import java.util.List;
 
